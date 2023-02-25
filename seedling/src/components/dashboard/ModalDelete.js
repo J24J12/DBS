@@ -9,8 +9,11 @@ import {
     IconButton
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { post } from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 function ModalDelete(props) {
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -21,8 +24,17 @@ function ModalDelete(props) {
       setOpen(false);
     };
   
-    // TODO: HANDLE DELETE REQUEST TO BACKEND AND ROUTE TO DASHBOARD
-    
+    // TODO: HANDLE 
+    const handleDelete = () => {
+        const res = post('https://reqres.in/api/posts/1', props.claimID);
+        if (res === "200") {
+            navigate("/");
+        } else {
+            alert("Error with deleting claim");
+            navigate("/");
+        }
+    }
+
     return (
       <div>
         <IconButton variant="contained" onClick={handleClickOpen}><DeleteIcon color="primary" /></IconButton>
@@ -42,7 +54,7 @@ function ModalDelete(props) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose} autoFocus>
+            <Button onClick={handleDelete} autoFocus>
               Delete
             </Button>
           </DialogActions>
