@@ -1,22 +1,37 @@
 import { useState } from "react";
 import dayjs from 'dayjs';
-import { Box, Button, TextField, Container, Select, MenuItem } from '@mui/material';
+import { Box, Button, TextField, Container, Select, MenuItem, Checkbox, FormControlLabel, FormLabel } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { get, post } from "../api/axios"
+import InputAdornment from '@mui/material/InputAdornment';
 
-export default function AddPage() {
-    const [amount, setAmount] = useState("")
-    const [purpose, setPurpose] = useState("")
+
+export default function AddForm() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [status, setStatus] = useState("")
-    const [expense, setExpenseDate] = useState(dayjs(Date.now()))
-    const [insuranceId, setInsuranceId] = useState("")
+    const [expenseDate, setExpenseDate] = useState(dayjs(Date.now()))
+    const [amount, setAmount] = useState("")
+    const [purpose, setPurpose] = useState("")
+    const [followUp, setFollowUp] = useState(true);
+    const [prevClaimId, setPrevClaimId] = useState("");
+    // const [status, setStatus] = useState("")
+    // const [insuranceId, setInsuranceId] = useState("")
 
     async function handleChangePassword(e) {
         e.preventDefault()
-        console.log(firstName, lastName, amount, purpose, status)
+        console.log(firstName, lastName, expenseDate.format('DD/MM/YYYY'), amount, purpose, followUp, prevClaimId)
+        // post("localhost/add_claim", {
+        //     first_name: firstName,
+        //     last_name: lastName,
+        //     date: expenseDate,
+        //     claim_amt: amount,
+        //     purpose: purpose,
+        //     follow_up: followUp,
+        //     prev_claim_id: prevClaimId
+        // })
+
     }
 
     return (
@@ -33,7 +48,7 @@ export default function AddPage() {
                     autoComplete="off"
                     onSubmit={handleChangePassword}
                 >
-                    <Select
+                    {/* <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={insuranceId}
@@ -43,19 +58,31 @@ export default function AddPage() {
                         <MenuItem value={10}>10</MenuItem>
                         <MenuItem value={20}>20</MenuItem>
                         <MenuItem value={30}>30</MenuItem>
-                    </Select>
+                    </Select> */}
                     <TextField id="filled-basic" label="First Name" variant="filled" onChange={(e) => setFirstName(e.target.value)} />
                     <TextField id="filled-basic" label="Last Name" variant="filled" onChange={(e) => setLastName(e.target.value)} />
                     <DesktopDatePicker
                         label="Expense date"
                         inputFormat="MM/DD/YYYY"
-                        value={expense}
+                        value={expenseDate}
                         onChange={(e) => setExpenseDate(e)}
                         renderInput={(params) => <TextField {...params} />}
                     />
-                    <TextField id="filled-basic" label="Amount" variant="filled" onChange={(e) => setAmount(e.target.value)} />
+                    <FormControlLabel
+                        value="start"
+                        control={<Checkbox
+                            checked={followUp}
+                            onChange={(e) => setFollowUp(e.target.checked)}
+                            inputProps={{ 'aria-label': 'controlled' }} />}
+                        label="Start"
+                        labelPlacement="start"
+                    />
+                    <TextField id="filled-basic" label="Amount" prefix="$" type="number" variant="filled" onChange={(e) => setAmount(e.target.value)}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        }} />
                     <TextField id="filled-basic" label="Purpose" variant="filled" onChange={(e) => setPurpose(e.target.value)} />
-                    <TextField id="filled-basic" label="Status" variant="filled" onChange={(e) => setStatus(e.target.value)} />
+                    <TextField id="filled-basic" label="Previous Claim ID" variant="filled" onChange={(e) => setPrevClaimId(e.target.value)} />
 
                     <Button
                         type="submit"
