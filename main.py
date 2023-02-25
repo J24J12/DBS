@@ -25,11 +25,28 @@ def login():
          return Response("Password is wrong", status=401, mimetype='text/xml')
    else:
        return Response("User does not exist", status=401, mimetype='text/xml')
+   
+@app.route('/dashboard/<EmployeeID>/', methods = ['GET'])
+def dashboard(EmployeeID):
+        cursor.execute(f'SELECT c.* FROM InsuranceClaims c INNER JOIN InsurancePolicies p ON c.InsuranceID = p.InsuranceID WHERE p.EmployeeID = "{EmployeeID}"')
+        data = cursor.fetchall()
+        if data: 
+          for i in data: 
+            if i['FollowUp'] == b'\x00': 
+              i['FollowUp'] = 0 
+            elif i['FollowUp'] == b'\x01': 
+              i['FollowUp'] = 1   
+          return {"data": data }
+        else:
+              return Response("User has no claim records", status=401, mimetype='text/xml')
+
     
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
+    if 'user' in session:   
+      session.pop('user',None)  
     return Response("Logout", status=200, mimetype='text/xml') 
 
 if __name__ == '__main__':
