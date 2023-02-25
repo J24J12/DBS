@@ -1,0 +1,40 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 36vw;
+    box-shadow: 0px 0px 12px 4px #EEE;
+    margin-top: 4rem;
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.form > input {
+    height: 2em;
+    margin-bottom: 2em;
+    margin-top: 0.4em;
+    border-radius: 4px;
+    padding: 1em;
+    width: 80%;
+}
+
+.form > button {
+    cursor: pointer;
+    margin-top: 1em;
+    height: 3em;
+    width: 8em;
+    border-radius: 6px;
+    border: none;
+}
+
+.form > button:active {
+    box-shadow: inset 0px 0px 20px 4px #CCC;
+}
+
+.form > p {
+    cursor: pointer;
+}
+
+.error-message {
+    color: #f93108;
+}

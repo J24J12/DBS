@@ -1,27 +1,23 @@
-import logo from './logo.svg';
+import { AuthProvider } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AddPage from './components/Add/Add.js'
-
+import DashboardContent from './components/dashboard/Dashboard';
+import { EditClaim } from './components/Edit/Edit';
+import AddPage from './components/Add/Add';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <AddPage/>
-      </header>
-    </div>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<DashboardContent />} />
+            <Route path="/edit" element={<EditClaim/>} />
+            <Route path="/add" element={<AddPage/>} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
   );
 }
 
