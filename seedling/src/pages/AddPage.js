@@ -1,20 +1,17 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import LoginForm from '../components/Login/LoginForm'
 import { Navigate } from 'react-router-dom'
-import {Typography} from "@mui/material"
 import "./LoginPage.css"
+import AddForm from '../components/Add/Add'
 
 const LoginPage = () => {
     const { auth } = useContext(AuthContext)
 
     return (
-        auth.id ? <Navigate to="/" replace /> :
-            <main className='loginPage'>
-                <Typography variant="h2">Seedling</Typography>
-                <LoginForm />
+        !auth.id ? <Navigate to="/login" replace /> :
+            <main className='AddPage'>
+                <AddForm />
             </main>
-
     )
 }
 
