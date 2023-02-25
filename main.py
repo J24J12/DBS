@@ -30,7 +30,9 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return Response("Logout", status=200, mimetype='text/xml') 
+    if 'user' in session:  
+      session.pop('user',None)  
+    return Response("Logout", status=200, mimetype='text/xml')
 
 if __name__ == '__main__':
     app.run(debug = True)
