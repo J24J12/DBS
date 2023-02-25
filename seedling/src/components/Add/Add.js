@@ -24,15 +24,15 @@ export default function AddForm() {
     async function handleChangePassword(e) {
         e.preventDefault()
         console.log(firstName, lastName, expenseDate.format('DD/MM/YYYY'), amount, purpose, followUp, prevClaimId)
-        // post("localhost/add_claim", {
-        //     first_name: firstName,
-        //     last_name: lastName,
-        //     date: expenseDate,
-        //     claim_amt: amount,
-        //     purpose: purpose,
-        //     follow_up: followUp,
-        //     prev_claim_id: prevClaimId
-        // })
+        post("localhost/add_claim", JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            date: expenseDate,
+            claim_amt: amount,
+            purpose: purpose,
+            follow_up: followUp,
+            prev_claim_id: prevClaimId
+        }))
     }
 
     function handleBack() {
