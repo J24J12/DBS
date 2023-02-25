@@ -25,7 +25,12 @@ def login():
          return Response("Password is wrong", status=401, mimetype='text/xml')
    else:
        return Response("User does not exist", status=401, mimetype='text/xml')
-
+    
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return Response("Logout", status=200, mimetype='text/xml') 
 
 if __name__ == '__main__':
     app.run(debug = True)
