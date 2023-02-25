@@ -30,7 +30,7 @@ export const EditClaim = () => {
             <form onSubmit={handleEdit}>
                 <label>New Expense Date: </label>
                 <input
-                    type = "text"
+                    type = "date"
                     placeholder='New Expense Date'
                     value = {newExpenseDate}
                     onChange ={(e)=>{setNewExpenseDate(e.target.value)}}
@@ -53,16 +53,15 @@ export const EditClaim = () => {
                 />
                 <br/>
                 <label>New Status:</label>
-                <input
-                    type = "text"
-                    placeholder='New Status'
-                    value = {newStatus}
-                    onChange ={(e)=>{setNewStatus(e.target.value)}}
-                />
+                <select value = {newStatus} onChange={(e) => {setNewStatus(e.target.value)}}>
+                    <option value = "pending" name = "pending">Pending</option>
+                    <option value = "approved" name = "approved">Approved</option>
+                    <option value = "rejected" name = "rejected">Rejected</option>
+                </select>
                 <br/>
                 <label>Last Claimed Date:</label>
                 <input
-                    type = "text"
+                    type = "date"
                     placeholder='Last Claimed Date'
                     value = {newLastEditClaimDate}
                     onChange ={(e)=>{setNewEditClaimDate(e.target.value)}}
