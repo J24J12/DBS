@@ -9,7 +9,7 @@ function EditButton(props) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-      navigate(`edit/${props.claimID}`);
+      navigate(`edit`, { state: { claimID: props.claimID } });
     };
 
     return (

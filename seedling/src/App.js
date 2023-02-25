@@ -16,7 +16,7 @@ function App() {
             <Route element={<AuthFilter />}>
               <Route path="/add" element={<AddPage/>} />
               <Route path="/" element={<DashboardContent />} />
-              <Route path="/edit/:id" element={<EditClaim/>} />
+              <Route path="/edit" element={<EditClaim/>} />
             </Route>
           </Routes>
         </BrowserRouter>
