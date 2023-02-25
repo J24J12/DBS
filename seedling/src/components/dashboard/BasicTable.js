@@ -10,13 +10,14 @@ import {
     IconButton,
     TablePagination
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import data from './mockData'
+import ModalDelete from './ModalDelete';
 
 // TODO: GET DATA FOR DASHBOARD AND PUT INTO VARIABLE DATA
 
 const headers = [
+    "Claim ID",
     "First Name",
     "Last Name",
     "Expense Date",
@@ -36,7 +37,7 @@ function BasicTable() {
     const [headerRows, setHeaderRows] = React.useState(headers);
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -75,8 +76,9 @@ function BasicTable() {
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.FirstName}
+                                    {row.ClaimID}
                                 </TableCell>
+                                <TableCell>{row.FirstName}</TableCell>
                                 <TableCell>{row.LastName}</TableCell>
                                 <TableCell>{convertDateTime(row.ExpenseDate)}</TableCell>
                                 <TableCell>{row.Amount}</TableCell>
@@ -89,7 +91,7 @@ function BasicTable() {
                                     <IconButton variant="contained"><EditIcon color="primary" /></IconButton>
                                 </TableCell>
                                 <TableCell align="right">
-                                    <IconButton variant="contained"><DeleteIcon color="primary" /></IconButton>
+                                   <ModalDelete claimID={row.ClaimID}/>
                                 </TableCell>
                             </TableRow>
                         ))}
