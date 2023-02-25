@@ -11,21 +11,20 @@ cursor = connection.cursor()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  if request.method == 'POST':
-    data = request.json
-    id = data.get('id')
-    pw = data.get('password')
-    cursor.execute(f'SELECT * FROM User WHERE EmployeeID = "{id}"')
-    user = cursor.fetchone()
-    if user: 
-      if pw == user['Password']:
-        login_user(user, remember=True)
-        session['user'] = user
-        return Response("User is logged in", status=200, mimetype='text/xml')
-      else:
-          return Response("Password is wrong", status=401, mimetype='text/xml')
-    else:
-        return Response("User does not exist", status=401, mimetype='text/xml')
+   data = request.json
+   id = data.get('id')
+   pw = data.get('password')
+   cursor.execute(f'SELECT * FROM User WHERE EmployeeID = "{id}"')
+   user = cursor.fetchone()
+   if user: 
+     if pw == user['Password']:
+       login_user(user, remember=True)
+       session['user'] = user
+       return Response("User is logged in", status=200, mimetype='text/xml')
+     else:
+         return Response("Password is wrong", status=401, mimetype='text/xml')
+   else:
+       return Response("User does not exist", status=401, mimetype='text/xml')
 
 
 if __name__ == '__main__':
