@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export const EditClaim = () => {
+export const EditClaim = ({ id }) => {
     const [newExpenseDate, setNewExpenseDate] = useState('')
     const [newAmount, setNewAmount] = useState(0)
     const [newPurpose, setNewPurpose] = useState('')
     const [newStatus, setNewStatus] = useState('')
     const [newLastEditClaimDate, setNewEditClaimDate] = useState('')
+
+    // useEffect to grab all the information pertaining to the user
+    useEffect()
 
     const handleEdit = async (e) => {
         e.preventDefault()
