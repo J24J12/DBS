@@ -5,7 +5,14 @@ import {useNavigate } from 'react-router-dom'
 import "./forms.css"
 
 const LoginForm = () => {
-
+    const user = {
+        "EmployeeID": "1234",
+        "Password": "1234",
+        "FirstName": "Irene",
+        "LastName": "Lim",
+        "Age": 27
+    }
+    const env = "development"
     const {setAuth} = useContext(AuthContext)
     const [formData, setFormData] = useState({
         id: "",
@@ -23,7 +30,15 @@ const LoginForm = () => {
     }
     const login = (e) => {
         e.preventDefault()
-        post("/login", JSON.stringify(formData))
+        if (env === "development") {
+            if (formData.id === user.EmployeeID && formData.password === user.Password) {
+                setAuth({
+                    id: formData.id
+                })
+                navigate("/", {replace: true})
+            }
+        } else {
+            post("/login", JSON.stringify(formData))
             .then(res => {
                 setAuth({
                     id: formData.id
@@ -38,18 +53,20 @@ const LoginForm = () => {
             .catch(res => {
                 setErrMessage(res.response.data.message)
             })
+        }
+        
     }
 
     return (
         <form className='form' onSubmit={login}>
-            <label htmlFor='employeeId'>Employee ID:</label>
+            <label htmlFor='id'>Employee ID:</label>
             <input
                 type="text"
-                name="employeeId"
-                id="employeeId"
+                name="id"
+                id="id"
                 placeholder='Employee ID'
                 onChange={handleChange}
-                value={formData.employeeId}
+                value={formData.id}
                 autoComplete="off"
             />
             <label htmlFor='password'>Password:</label>

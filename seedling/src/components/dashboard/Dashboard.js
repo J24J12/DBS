@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import AuthContext from '../../context/AuthContext';
 import { Grid, Box, Button, Typography } from '@mui/material';
 import BasicTable from './BasicTable';
 import { useNavigate } from "react-router-dom";
 
 function DashboardContent() {
     const navigate = useNavigate();
+    const {setAuth} = useContext(AuthContext)
 
     function handleAdd() {
         navigate("/add");
+    }
+
+    const logout = () => {    
+        setAuth({})
+        navigate("/login")
     }
 
 
@@ -18,7 +25,7 @@ function DashboardContent() {
                     <Typography variant="h4">View Insurance Claims</Typography>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" sx={{ mr: 2 }}>
+                    <Button variant="outlined" sx={{ mr: 2 }} onClick={logout}>
                         Logout
                     </Button>
                     <Button variant="contained" onClick={handleAdd}>
