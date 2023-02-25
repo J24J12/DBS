@@ -19,4 +19,7 @@ const post = async (endpoint, body) => {
     return res
 }
 
-export {get, post}
+const customAxios = axios.create()
+   
+
+export {get, post, customAxios}
