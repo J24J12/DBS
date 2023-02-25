@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Button, TextField } from '@mui/material'
 
 export const EditClaim = ({ id }) => {
     const [newExpenseDate, setNewExpenseDate] = useState('')
@@ -6,9 +7,6 @@ export const EditClaim = ({ id }) => {
     const [newPurpose, setNewPurpose] = useState('')
     const [newStatus, setNewStatus] = useState('')
     const [newLastEditClaimDate, setNewEditClaimDate] = useState('')
-
-    // useEffect to grab all the information pertaining to the user
-    useEffect()
 
     const handleEdit = async (e) => {
         e.preventDefault()
@@ -31,45 +29,67 @@ export const EditClaim = ({ id }) => {
     return (
         <div>
             <form onSubmit={handleEdit}>
-                <label>New Expense Date: </label>
-                <input
-                    type = "date"
-                    placeholder='New Expense Date'
-                    value = {newExpenseDate}
-                    onChange ={(e)=>{setNewExpenseDate(e.target.value)}}
+
+                <TextField
+                    id = "outlined-basic"
+                    label = "New Expense Date: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
+                    type="date"
+                    value={newExpenseDate}
+                    onChange = {(e)=>{setNewExpenseDate(e.target.value)}}
                 />
                 <br/>
-                <label>New Amount: </label>
-                <input
+
+                <TextField
+                    id = "outlined-basic"
+                    label = "New Amount: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
                     type = "number"
-                    placeholder='New Amount'
-                    value = {newAmount}
+                    value={newAmount}
                     onChange ={(e)=>{setNewAmount(e.target.value)}}
                 />
                 <br/>
-                <label>New Purpose: </label>
-                <input
+               
+                <TextField
+                    id = "outlined-basic"
+                    label = "New Purpose: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
                     type = "text"
-                    placeholder='New Purpose'
-                    value = {newPurpose}
+                    value={newPurpose}
                     onChange ={(e)=>{setNewPurpose(e.target.value)}}
                 />
                 <br/>
-                <label>New Status:</label>
-                <select value = {newStatus} onChange={(e) => {setNewStatus(e.target.value)}}>
-                    <option value = "pending" name = "pending">Pending</option>
-                    <option value = "approved" name = "approved">Approved</option>
-                    <option value = "rejected" name = "rejected">Rejected</option>
-                </select>
+
+                <TextField
+                    id = "outlined-basic"
+                    label = "New Status: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
+                    type = "text"
+                    value={newStatus}
+                    onChange ={(e)=>{setNewStatus(e.target.value)}}
+                />
                 <br/>
-                <label>Last Claimed Date:</label>
+
+                {/* <label>Last Claimed Date:</label>
                 <input
                     type = "date"
                     placeholder='Last Claimed Date'
                     value = {newLastEditClaimDate}
                     onChange ={(e)=>{setNewEditClaimDate(e.target.value)}}
                 />
-                <br/>
+                <br/> */}
                 <button type = "submit">Submit</button>
             </form>
         </div>
