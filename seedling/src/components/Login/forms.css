@@ -25,14 +25,14 @@
     width: 8em;
     border-radius: 6px;
     border: none;
+    background-color: #1976d2;
+    color: #fff;
+    font-weight: bold;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .form > button:active {
     box-shadow: inset 0px 0px 20px 4px #CCC;
-}
-
-.form > p {
-    cursor: pointer;
 }
 
 .error-message {
