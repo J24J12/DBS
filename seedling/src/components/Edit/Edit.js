@@ -60,7 +60,7 @@ export const EditClaim = () => {
                     onChange ={(e)=>{setNewStatus(e.target.value)}}
                 />
                 <br/>
-                <label>New Expense Date:</label>
+                <label>Last Claimed Date:</label>
                 <input
                     type = "text"
                     placeholder='Last Claimed Date'
