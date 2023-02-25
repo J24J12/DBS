@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Button, TextField } from '@mui/material'
+import { 
+    Button, 
+    FormControl, 
+    MenuItem, 
+    TextField, 
+    Select, 
+    Menu, 
+    InputLabel,
+} from '@mui/material'
 
 export const EditClaim = ({ id }) => {
     const [newExpenseDate, setNewExpenseDate] = useState('')
@@ -8,22 +16,37 @@ export const EditClaim = ({ id }) => {
     const [newStatus, setNewStatus] = useState('')
     const [newLastEditClaimDate, setNewEditClaimDate] = useState('')
 
+    const handleOptionChange = async (e) => {
+        setNewStatus(e.target.value)
+    }
+
+    const getCurrentDate = async() => {
+        return new Date().toLocaleDateString();
+    }
+
     const handleEdit = async (e) => {
         e.preventDefault()
         try {
+           
             // The below JSON data is subjected to change
             const editData = {
                 newExpenseDate: newExpenseDate,
                 newAmount: newAmount,
                 newPurpose: newPurpose,
                 newStatus: newStatus,
-                newLastEditClaimDate: newLastEditClaimDate
+                newLastEditClaimDate: await getCurrentDate()
             }
             // Insert POST reuqest
             console.log(editData)
         } catch (err) {
             console.log(`Error: ${err.message}`)
         }
+
+        setNewExpenseDate('')
+        setNewAmount(0)
+        setNewPurpose('')
+        setNewStatus('')
+        // setNewEditClaimDate('')
     }
 
     return (
@@ -69,28 +92,32 @@ export const EditClaim = ({ id }) => {
                 />
                 <br/>
 
-                <TextField
-                    id = "outlined-basic"
-                    label = "New Status: "
-                    variant= "outlined"
-                    size = "small"
-                    fullWidth
-                    margin = "normal"
-                    type = "text"
-                    value={newStatus}
-                    onChange ={(e)=>{setNewStatus(e.target.value)}}
-                />
-                <br/>
+                <FormControl variant="outlined" fullWidth margin="normal">
+                    <InputLabel id="demo-simple-select-outlined-label">Select an option</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={newStatus}
+                        onChange={handleOptionChange}
+                        label="Select an option"
+                    >
+                    <MenuItem>
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="pending">Pending</MenuItem>
+                    <MenuItem value="approved">Approved</MenuItem>
+                    <MenuItem value="rejected">Rejected</MenuItem>
+                    </Select>
+                </FormControl>
 
-                {/* <label>Last Claimed Date:</label>
-                <input
-                    type = "date"
-                    placeholder='Last Claimed Date'
-                    value = {newLastEditClaimDate}
-                    onChange ={(e)=>{setNewEditClaimDate(e.target.value)}}
-                />
-                <br/> */}
-                <button type = "submit">Submit</button>
+                <Button
+                    variant="contained" 
+                    color="primary" 
+                    size="medium" 
+                    type="submit" 
+                    fullWidth 
+                    margin="normal"
+                > Submit </Button>
             </form>
         </div>
     )
