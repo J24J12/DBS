@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
-import AuthContext from '../../context/AuthContext'
+import {AuthContext} from '../../context/AuthContext'
 import { post } from '../api/axios'
 import {useNavigate } from 'react-router-dom'
 import "./forms.css"
+import { setCookie } from '../../cookies'
 
 const LoginForm = () => {
     const user = {
@@ -35,6 +36,7 @@ const LoginForm = () => {
                 setAuth({
                     id: formData.id
                 })
+                setCookie("auth", formData.id, 2)
                 navigate("/", {replace: true})
             }
         } else {
@@ -43,6 +45,7 @@ const LoginForm = () => {
                 setAuth({
                     id: formData.id
                 })
+                setCookie("auth", formData.id, 2)
                 setFormData({
                     id: "",
                     password: ""

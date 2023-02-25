@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
-import AuthContext from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 import { Grid, Box, Button, Typography } from '@mui/material';
 import BasicTable from './BasicTable';
 import { useNavigate } from "react-router-dom";
+import { deleteCookie } from '../../cookies';
 
 function DashboardContent() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function DashboardContent() {
 
     const logout = () => {    
         setAuth({})
+        deleteCookie("auth")
         navigate("/login")
     }
 
