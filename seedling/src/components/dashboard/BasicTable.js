@@ -7,12 +7,12 @@ import {
     TableCell, 
     TableBody, 
     Paper,
-    IconButton,
     TablePagination
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import data from './mockData'
 import ModalDelete from './ModalDelete';
+import EditButton from './EditButton';
+
 
 // TODO: GET DATA FOR DASHBOARD AND PUT INTO VARIABLE DATA
 
@@ -33,9 +33,6 @@ const headers = [
 ]
   
 function BasicTable() {
-    const [rows, setRows] = React.useState(data);
-    const [headerRows, setHeaderRows] = React.useState(headers);
-
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -62,13 +59,13 @@ function BasicTable() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {headerRows.map((header) => (
+                            {headers.map((header) => (
                                 <TableCell>{header}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {data
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => (
                             <TableRow
@@ -88,7 +85,7 @@ function BasicTable() {
                                 <TableCell>{row.Status}</TableCell>
                                 <TableCell>{row.LastEditClaimDate}</TableCell>
                                 <TableCell>
-                                    <IconButton variant="contained"><EditIcon color="primary" /></IconButton>
+                                   <EditButton claimID={row.ClaimID}/>
                                 </TableCell>
                                 <TableCell align="right">
                                    <ModalDelete claimID={row.ClaimID}/>
@@ -98,9 +95,9 @@ function BasicTable() {
                     </TableBody>
                 </Table>
                 <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
+                    rowsPerPageOptions={[5, 10, 25, 100]}
                     component="div"
-                    count={rows.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

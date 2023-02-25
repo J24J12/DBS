@@ -3,7 +3,7 @@ import {
     Button, 
     TextField
 } from '@mui/material'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 
 export const EditClaim = ({ id }) => {
     const [newFirstName, setNewFirstName] = useState('')
@@ -12,7 +12,10 @@ export const EditClaim = ({ id }) => {
     const [newAmount, setNewAmount] = useState(0)
     const [newPurpose, setNewPurpose] = useState('')
     const [newLastEditClaimDate, setNewEditClaimDate] = useState('')
+    const location = useLocation()
+    const claimId = location.state.claimID
 
+    console.log(location)
     const navigate = useNavigate()
 
     const getCurrentDate = async() => {
