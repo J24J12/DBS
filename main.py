@@ -45,9 +45,9 @@ def dashboard(EmployeeID):
 @login_required
 def logout():
     logout_user()
-    if 'user' in session:   
+    if 'user' in session:  
       session.pop('user',None)  
-    return Response("Logout", status=200, mimetype='text/xml') 
+    return Response("Logout", status=200, mimetype='text/xml')
 
 if __name__ == '__main__':
     app.run(debug = True)
