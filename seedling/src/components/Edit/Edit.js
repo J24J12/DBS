@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react'
 import { 
     Button, 
-    FormControl, 
-    MenuItem, 
-    TextField, 
-    Select, 
-    Menu, 
-    InputLabel,
+    TextField
 } from '@mui/material'
+import { useNavigate } from 'react-router'
 
 export const EditClaim = ({ id }) => {
-    const [newExpenseDate, setNewExpenseDate] = useState('')
+    const [newFirstName, setNewFirstName] = useState('')
+    const [newLastName, setNewLastName] = useState('')
+    const [newExpenseDate, setNewExpenseDate] = useState(' ')
     const [newAmount, setNewAmount] = useState(0)
     const [newPurpose, setNewPurpose] = useState('')
-    const [newStatus, setNewStatus] = useState('')
     const [newLastEditClaimDate, setNewEditClaimDate] = useState('')
 
-    const handleOptionChange = async (e) => {
-        setNewStatus(e.target.value)
-    }
+    const navigate = useNavigate()
 
     const getCurrentDate = async() => {
         return new Date().toLocaleDateString();
+    }
+
+    const backToLastPage = async() => {
+        navigate(-1)
+        console.log("Went Back")
     }
 
     const handleEdit = async (e) => {
@@ -30,10 +30,11 @@ export const EditClaim = ({ id }) => {
            
             // The below JSON data is subjected to change
             const editData = {
+                newFirstName: newFirstName,
+                newLastName: newLastName,
                 newExpenseDate: newExpenseDate,
                 newAmount: newAmount,
                 newPurpose: newPurpose,
-                newStatus: newStatus,
                 newLastEditClaimDate: await getCurrentDate()
             }
             // Insert POST reuqest
@@ -42,16 +43,43 @@ export const EditClaim = ({ id }) => {
             console.log(`Error: ${err.message}`)
         }
 
-        setNewExpenseDate('')
+        setNewExpenseDate(' ')
         setNewAmount(0)
         setNewPurpose('')
-        setNewStatus('')
         // setNewEditClaimDate('')
     }
 
     return (
         <div>
             <form onSubmit={handleEdit}>
+
+                <TextField
+                    id = "outlined-basic"
+                    label = "First Name: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
+                    type="text"
+                    value={newFirstName}
+                    onChange = {(e)=>{setNewFirstName(e.target.value)}}
+                />
+
+                <br/>
+
+                <TextField
+                    id = "outlined-basic"
+                    label = "Last Name: "
+                    variant= "outlined"
+                    size = "small"
+                    fullWidth
+                    margin = "normal"
+                    type="text"
+                    value={newLastName}
+                    onChange = {(e)=>{setNewLastName(e.target.value)}}
+                />
+
+                <br/>
 
                 <TextField
                     id = "outlined-basic"
@@ -92,24 +120,6 @@ export const EditClaim = ({ id }) => {
                 />
                 <br/>
 
-                <FormControl variant="outlined" fullWidth margin="normal">
-                    <InputLabel id="demo-simple-select-outlined-label">Select an option</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={newStatus}
-                        onChange={handleOptionChange}
-                        label="Select an option"
-                    >
-                    <MenuItem>
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="pending">Pending</MenuItem>
-                    <MenuItem value="approved">Approved</MenuItem>
-                    <MenuItem value="rejected">Rejected</MenuItem>
-                    </Select>
-                </FormControl>
-
                 <Button
                     variant="contained" 
                     color="primary" 
@@ -119,6 +129,18 @@ export const EditClaim = ({ id }) => {
                     margin="normal"
                 > Submit </Button>
             </form>
+
+            <Button
+                style={{
+                    marginTop: '10px'
+                }}
+                variant="contained" 
+                color="secondary" 
+                size="medium" 
+                fullWidth 
+                margin="normal"
+                onClick={backToLastPage}
+            > Back </Button>
         </div>
     )
 }
