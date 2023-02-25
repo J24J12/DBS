@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthFilter from './components/AuthFilter';
 import DashboardContent from './components/dashboard/Dashboard';
 import { EditClaim } from './components/Edit/Edit';
-import AddPage from './components/Add/Add';
+import AddPage from './pages/AddPage';
 import './App.css';
 
 function App() {
