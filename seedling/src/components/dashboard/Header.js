@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
-import AuthContext from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 import { Grid, Button, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { deleteCookie } from '../../cookies';
 
 function Header() {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Header() {
 
     const logout = () => {    
         setAuth({})
+        deleteCookie("auth")
         navigate("/login")
     }
 
