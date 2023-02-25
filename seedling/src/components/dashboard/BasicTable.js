@@ -7,10 +7,8 @@ import {
     TableCell, 
     TableBody, 
     Paper,
-    IconButton,
     TablePagination
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import data from './mockData'
 import ModalDelete from './ModalDelete';
 import EditButton from './EditButton';
