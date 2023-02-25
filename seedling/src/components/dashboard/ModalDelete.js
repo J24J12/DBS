@@ -10,10 +10,8 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { post } from "../api/axios";
-import { useNavigate } from "react-router-dom";
 
 function ModalDelete(props) {
-    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -26,12 +24,11 @@ function ModalDelete(props) {
   
     // TODO: HANDLE 
     const handleDelete = () => {
-        const res = post('https://reqres.in/api/posts/1', props.claimID);
-        if (res === "200") {
-            navigate("/");
+        const res = post(`/delete/<int:${props.claimID}>`, '');
+        if (res.includes("status-200")) {
+            window.location.reload();
         } else {
             alert("Error with deleting claim");
-            navigate("/");
         }
     }
 
