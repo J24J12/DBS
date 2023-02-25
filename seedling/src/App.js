@@ -1,4 +1,6 @@
-import logo from './logo.svg';
+import { AuthProvider } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { EditClaim } from './components/Edit/Edit';
 import { 
@@ -10,13 +12,14 @@ import {
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route exact path="/edit" element={<EditClaim/>}></Route>
-        </Routes>
-      </Router>
-    </div>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/edit" element={<EditClaim/>}></Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
   );
 }
 
