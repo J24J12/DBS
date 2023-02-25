@@ -1,14 +1,16 @@
 import { useState } from "react";
 import dayjs from 'dayjs';
-import { Box, Button, TextField, Container, Select, MenuItem, Checkbox, FormControlLabel, FormLabel } from '@mui/material';
+import { Box, Button, TextField, Container, Typography, Checkbox, FormControlLabel, FormLabel } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { get, post } from "../api/axios"
 import InputAdornment from '@mui/material/InputAdornment';
-
+import { Route, Link, Routes, useNavigate } from 'react-router-dom';
 
 export default function AddForm() {
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [expenseDate, setExpenseDate] = useState(dayjs(Date.now()))
@@ -31,16 +33,21 @@ export default function AddForm() {
         //     follow_up: followUp,
         //     prev_claim_id: prevClaimId
         // })
+    }
 
+    function handleBack() {
+        navigate(-1);
     }
 
     return (
-        <Container>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Container >
                 <Box
+                    justifyContent="center"
+                    alignItems="center"
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
+                        '& > :not(style)': { m: 1, width: '75%' },
                         display: 'flex',
                         flexDirection: 'column',
                     }}
@@ -48,6 +55,7 @@ export default function AddForm() {
                     autoComplete="off"
                     onSubmit={handleChangePassword}
                 >
+                    <Typography variant="h3" textAlign={"center"}>Add Insurance Claim</Typography>
                     {/* <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -91,9 +99,16 @@ export default function AddForm() {
                     >
                         Add Claim
                     </Button>
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={handleBack}
+                    >
+                        Back
+                    </Button>
                 </Box>
-            </LocalizationProvider>
 
-        </Container >
+            </Container >
+        </LocalizationProvider>
     );
 }
