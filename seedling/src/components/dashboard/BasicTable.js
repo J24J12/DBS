@@ -12,63 +12,80 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import data from './mockData'
 
-function createData(id, name, calories, fat, carbs, protein, isConnected) {
-    return { id, name, calories, fat, carbs, protein, isConnected };
-}
-  
-const data = [
-    createData(1, "Frozen yoghurt", 159, 6.0, 24, 4.0, true),
-    createData(2, "Ice cream sandwich", 237, 9.0, 37, 4.3, false),
-    createData(3, "Eclair", 262, 16.0, 24, 6.0, false),
-    createData(4, "Cupcake", 305, 3.7, 67, 4.3, false),
-    createData(5, "Gingerbread", 356, 16.0, 49, 3.9, false)
-];
+// TODO: GET DATA FOR DASHBOARD AND PUT INTO VARIABLE DATA
+
+const headers = [
+    "First Name",
+    "Last Name",
+    "Expense Date",
+    "Amount",
+    "Purpose",
+    "Follow Up",
+    "Previous Claim ID",
+    "Status",
+    "Last Edit Claim Date",
+    "",
+    "",
+    ""
+]
   
 function BasicTable() {
     const [rows, setRows] = React.useState(data);
+    const [headerRows, setHeaderRows] = React.useState(headers);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
+    
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    function convertDateTime(isoStr) {
+        const date = new Date(isoStr);
+        const timestamp = date.getTime();
+        const dateCopy = new Date(timestamp);
+        const newDateString = dateCopy.toString().replace(" GMT+0800 (Singapore Standard Time)", "")
+        return newDateString
+    }
+
     return (
-        <Paper sx={{ width: '100%' }}>
+        <Paper sx={{ width: '100%' , overflow: 'hidden'}}>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Insurance Type</TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right">Policy Start Date</TableCell>
-                            <TableCell align="right">Policy End Date</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
+                            {headerRows.map((header) => (
+                                <TableCell>{header}</TableCell>
+                            ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((row) => (
                             <TableRow
                             key={row.name}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.FirstName}
                                 </TableCell>
-                                <TableCell align="right">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
-                                <TableCell align="right">
+                                <TableCell>{row.LastName}</TableCell>
+                                <TableCell>{convertDateTime(row.ExpenseDate)}</TableCell>
+                                <TableCell>{row.Amount}</TableCell>
+                                <TableCell>{row.Purpose}</TableCell>
+                                <TableCell>{row.Followup}</TableCell>
+                                <TableCell>{row.PreviousClaimID}</TableCell>
+                                <TableCell>{row.Status}</TableCell>
+                                <TableCell>{row.LastEditClaimDate}</TableCell>
+                                <TableCell>
                                     <IconButton variant="contained"><EditIcon color="primary" /></IconButton>
                                 </TableCell>
                                 <TableCell align="right">
