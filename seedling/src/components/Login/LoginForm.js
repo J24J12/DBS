@@ -5,13 +5,7 @@ import {useNavigate } from 'react-router-dom'
 import "./forms.css"
 
 const LoginForm = () => {
-    const user = {
-        "EmployeeID": 58001001,
-        "Password": "iLoveTT!23",
-        "FirstName": "Irene",
-        "LastName": "Lim",
-        "Age": 27
-    }
+
     const {setAuth} = useContext(AuthContext)
     const [formData, setFormData] = useState({
         id: "",
